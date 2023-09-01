@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://d36c1lntx0jgs"]
+
+[ext_resource type="Script" path="res://server.gd" id="2_2htkw"]
+[ext_resource type="Script" path="res://websocket/WebSocketServer.gd" id="3_py5bc"]
+
+[node name="Server" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_2htkw")
+
+[node name="WebSocketServer" type="Node" parent="."]
+script = ExtResource("3_py5bc")
+supported_protocols = PackedStringArray("demo-chat")
+
+[connection signal="client_connected" from="WebSocketServer" to="." method="_on_web_socket_server_client_connected"]
+[connection signal="client_disconnected" from="WebSocketServer" to="." method="_on_web_socket_server_client_disconnected"]
+[connection signal="message_received" from="WebSocketServer" to="." method="_on_web_socket_server_message_received"]
